@@ -12,7 +12,7 @@ soup = BeautifulSoup(res.text, "lxml")
 # print(soup.a.attrs) # attrs : 속성 (딕셔너리 형태)
 # print(soup.a["href"]) # a의 href 속성의 '값' 출력
 
-# print(soup.find("a", attrs = {"class":"Nbtn_upload"})) # class = "Nbtn_upload"인 a element 를 찾아줘
+# print(soup.find("a", attrs = {"class":"Nbtn_upload"})) # find : class = "Nbtn_upload"인 첫번째 a element 를 찾아줘
 # print(soup.find(attrs = {"class":"Nbtn_upload"})) # class = "Nbtn_upload" 인 어떤 element 를 찾아줘
 
 # print(soup.find("li", attrs = {"class":"rank01"}))
