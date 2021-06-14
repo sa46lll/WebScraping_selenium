@@ -1,17 +1,28 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://search.daum.net/search?w=tot&q=2020}%EB%85%84%EC%98%81%ED%99%94%EC%88%9C%EC%9C%84&DA=MOR&rtmaxcoll=MOR"
-# headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36"}
+# 2015-2020 상위 영화 5개 이미지 저장
+for year in range(2015, 2021):
+    url = "https://search.daum.net/search?w=tot&q={}%EB%85%84%EC%98%81%ED%99%94%EC%88%9C%EC%9C%84&DA=MOR&rtmaxcoll=MOR".format(year)
 
-res = requests.get(url)
-res.raise_for_status()
-soup = BeautifulSoup(res.text, "lxml")
+    res = requests.get(url)
+    res.raise_for_status()
+    soup = BeautifulSoup(res.text, "lxml")
 
-images = soup.find_all("img", attrs={"class" : "thumb_img"})
+    images = soup.find_all("img", attrs={"class" : "thumb_img"})
 
-for image in images:
-    image_url = image["src"]
-    if image_url.startswith("//"): # //로 시작한다면
-        image_url = "https:" + image_url
-    print(image_url)
+    for idx, image in enumerate(images): # enumerate : index를 줌
+        image_url = image["src"]
+        if image_url.startswith("//"): # //로 시작한다면
+            image_url = "https:" + image_url
+        print(image_url)
+
+        image_res = requests.get(image_url)
+        image_res.raise_for_status()
+
+        with open("movie_{}_{}.jpg".format(year, idx+1), "wb") as f:
+            f.write(image_res.content)
+
+        # 싱위 5개 이미지까지만 다운로드
+        if idx >= 4:
+            break
