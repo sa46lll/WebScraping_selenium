@@ -13,19 +13,38 @@ items = soup.find_all("li", attrs={"class" : re.compile("^search-product")}) # s
 # print(items[0].find("div", attrs={"class" : "name"}).get_text())
 
 for item in items:
+
+    # 광고 제품은 제외
+    ad_badge = item.find("span", attrs={"class" : "ad-badge-text"})
+    if ad_badge:
+        print(" <광고 상품 제외합니다>  ")
+        continue
+
     name = item.find("div", attrs={"class" : "name"}).get_text() # 제품명
-    price = item.find("strong", attrs={"class" : "price-value"}).get_text() # 가격
+    # 애플 제품 제외
+    if "Apple" in name:
+        print(" <Apple 상품 제외합니다.> ")
+        continue
     
+    price = item.find("strong", attrs={"class" : "price-value"}).get_text() # 가격
+
+ 
+    # 리뷰 100개 이상, 평점 4.5 이상 되는 것만 조회
     rating = item.find("em", attrs={"class" : "rating"}) # 평점
     if rating:
         rating = rating.get_text()
-    else : 
-        rating = "평점 없음"
+    else :
+        print(" <평점 없는 상품 제외합니다> ")
+        continue
 
-    rating_cnt = item.find("span", attrs={"class" : "rating-total-count"}).get_text() # 평점 수
+    rating_cnt = item.find("span", attrs={"class" : "rating-total-count"}) # 평점 수
     if rating_cnt:
         rating_cnt = rating_cnt.get_text()
+        rating_cnt = rating_cnt[1:-1]
+        # print("리뷰 수 : " + rating_cnt)
     else : 
-        rating_cnt = "평점 수 없음"
+        print(" <평점 수 없는 상품 제외합니다> ")
+        continue
 
-    print(name, price, rating, rating_cnt)
+    if float(rating) >= 4.5 and int(rating_cnt) >= 100:
+        print(name, price, rating, rating_cnt)
