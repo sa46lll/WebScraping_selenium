@@ -16,8 +16,24 @@ while(True):
 # browser.forward()
 # browser.refresh()
 
-# # 검색하기
+# # naver 검색하기
 # from selenium.webdriver.common.keys import Keys # ENTER
 # elem = browser.find_element_by_id("query")
 # elem.send_keys("나도코딩")
 # elem.send_keys(Keys.ENTER)
+
+# # 모든 elem의 href 속성을 가져옴.
+# elem = browser.find_elements_by_tag_name("a") #"a" element를 모두 가져옴
+# for e in elem:            
+#     e.get_attribute("href")
+
+# # daum 검색하기 : xpath
+# browser.get("http://daum.net")
+# elem = browser.find_element_by_name("q")
+# elem.send_keys("나도코딩")
+# elem = browser.find_element_by_xpath("//*[@id='daumSearch']/fieldset/div/div/button[2]")
+# elem.click()
+
+# # 종료
+# browser.close() # 탭 종료
+# browser.quit() # 모든 브라우저 종료
