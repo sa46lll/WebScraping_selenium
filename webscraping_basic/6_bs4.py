@@ -37,3 +37,11 @@ print(rank1.find_next_siblings("li")) # find_next_siblings : rank1의 모든 li 
 
 webtoon = soup.find("a", text = "독립일기-99화 영양제")
 print(webtoon)
+
+# find : 조건에 맞는 첫번째 element
+# find_all : 조건에 맞는 모든 element 리스트로
+# find_next_sibling(s) : 다음 형제 찾기
+# find_previous_sibling(s) : 이전 형제 찾기
+
+# soup["href"] : 속성
+# soup.get_text() : 텍스트

@@ -15,3 +15,7 @@ print(res.text)
 
 with open("mygoogle.html", "w", encoding="utf8") as f:
     f.write(res.text)
+
+# match() : 처음부터 일치하는지
+# search() : 일치하는게 있는지
+# findall() : 일치하는 것 모두 리스트로
