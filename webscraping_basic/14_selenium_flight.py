@@ -1,5 +1,4 @@
 from selenium import webdriver
-import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -26,7 +25,6 @@ browser.find_element_by_link_text("항공권 검색").click()
 try: # 성공하면 수행
     elem = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div[2]/div/div[4]/ul/li[1]")))
     print(elem.text)
-    time.sleep(10)
 finally:
     browser.quit()
 

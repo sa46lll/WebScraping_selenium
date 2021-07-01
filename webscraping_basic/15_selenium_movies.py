@@ -16,7 +16,7 @@ print(len(movies))
 
 # with open("movie.html", "w", encoding="utf8") as f:
 #     # f.write(res.text)
-#     f.write(soup.prettify())
+#     f.write(soup.prettify()) //안되면 user-agent
 
 for movie in movies:
     title = movie.find("div", attrs={"class":"WsMG1c nnK0zc"}).get_text()
